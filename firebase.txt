@@ -1,0 +1,8 @@
+Project name
+BridgeLink
+Project ID 
+bridgelink-677b8
+Project number 
+322497037155
+Web API Key 
+AIzaSyAFMBU5ItDCvEz_sE0vGrg1cUJ4admi-gs
