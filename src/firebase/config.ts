@@ -4,12 +4,12 @@ import { getFirestore } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "demo-key",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "demo-project.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "demo-project",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "demo-project.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:123456789:web:demo"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAFMBU5ItDCvEz_sE0vGrg1cUJ4admi-gs",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "bridgelink-677b8.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "bridgelink-677b8",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "bridgelink-677b8.appspot.com",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "322497037155",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:322497037155:web:your-app-id"
 };
 
 // Initialize Firebase
