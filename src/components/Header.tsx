@@ -26,17 +26,9 @@ const Header: React.FC = () => {
     <header className="bg-dark-800 border-b border-dark-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="relative w-10 h-10">
-              <img src="/Logo/b.png" alt="BridgeLink" className="w-full h-full" />
-              <img 
-                src="/Logo/hat-1.png" 
-                alt="Hat" 
-                className="absolute -top-1 -left-1 w-11 h-11 animate-bounce-slow" 
-              />
-            </div>
-            <span className="text-xl font-bold text-white">BridgeLink</span>
+          {/* Brand */}
+          <Link to="/" className="flex items-center">
+            <span className="text-2xl font-bold text-white">BridgeLink</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -47,24 +47,14 @@ const VerifyEmailPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="page-container">
       <Header />
       
       <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
+        <div className="form-container max-w-md w-full space-y-8">
           <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="relative w-16 h-16">
-                <img src="/Logo/b.png" alt="BridgeLink" className="w-full h-full" />
-                <img 
-                  src="/Logo/hat-1.png" 
-                  alt="Hat" 
-                  className="absolute -top-2 -left-2 w-18 h-18 animate-bounce-slow" 
-                />
-              </div>
-            </div>
-            <h2 className="text-3xl font-bold text-white">Verify your email</h2>
-            <p className="mt-2 text-gray-400">
+            <h2 className="text-3xl font-bold text-white mb-2">Verify your email</h2>
+            <p className="text-gray-400">
               We've sent a verification link to your email address
             </p>
           </div>

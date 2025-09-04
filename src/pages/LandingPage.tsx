@@ -83,7 +83,7 @@ const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="page-container">
       <Header />
       
       {/* Hero Section with Video Carousel */}
