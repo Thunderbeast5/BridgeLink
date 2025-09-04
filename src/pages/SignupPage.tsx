@@ -4,7 +4,18 @@ import { useAuth } from '../contexts/AuthContext';
 import { Eye, EyeOff, Mail, Lock, User, GraduationCap, AlertCircle, CheckCircle } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { SignUpData } from '../types';
+
+// Define types directly in this file
+interface SignUpData {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: 'alumni' | 'student';
+  branch: string;
+  batchYear: number;
+}
 
 const SignupPage: React.FC = () => {
   const [searchParams] = useSearchParams();

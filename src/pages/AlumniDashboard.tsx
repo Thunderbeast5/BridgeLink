@@ -3,11 +3,32 @@ import { useAuth } from '../contexts/AuthContext';
 import { Users, Search, Filter, MessageCircle, UserPlus } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { User, FilterOptions } from '../types';
+
+// Define types directly in this file
+interface AppUser {
+  uid: string;
+  email: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  role: 'admin' | 'alumni' | 'student';
+  branch: string;
+  batchYear: number;
+  createdAt: Date;
+  updatedAt: Date;
+  emailVerified: boolean;
+}
+
+interface FilterOptions {
+  branch?: string;
+  batchYear?: number;
+  role?: 'admin' | 'alumni' | 'student';
+  search?: string;
+}
 
 const AlumniDashboard: React.FC = () => {
   const { user } = useAuth();
-  const [students, setStudents] = useState<User[]>([]);
+  const [students, setStudents] = useState<AppUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<FilterOptions>({
     branch: user?.branch || '',
@@ -16,7 +37,7 @@ const AlumniDashboard: React.FC = () => {
 
   useEffect(() => {
     // Mock data for students in the same branch
-    const mockStudents: User[] = [
+    const mockStudents: AppUser[] = [
       {
         uid: '1',
         email: 'john.doe@university.edu',

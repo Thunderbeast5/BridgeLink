@@ -3,7 +3,35 @@ import { useAuth } from '../contexts/AuthContext';
 import { Users, GraduationCap, UserCheck, TrendingUp, Search, Filter, Download } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { User, DashboardStats, FilterOptions } from '../types';
+
+// Define types directly in this file
+interface AppUser {
+  uid: string;
+  email: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  role: 'admin' | 'alumni' | 'student';
+  branch: string;
+  batchYear: number;
+  createdAt: Date;
+  updatedAt: Date;
+  emailVerified: boolean;
+}
+
+interface FilterOptions {
+  branch?: string;
+  batchYear?: number;
+  role?: 'admin' | 'alumni' | 'student';
+  search?: string;
+}
+
+interface DashboardStats {
+  totalStudents: number;
+  totalAlumni: number;
+  totalAdmins: number;
+  recentSignups: number;
+}
 
 const AdminDashboard: React.FC = () => {
   const { user } = useAuth();
@@ -13,8 +41,8 @@ const AdminDashboard: React.FC = () => {
     totalAdmins: 0,
     recentSignups: 0
   });
-  const [students, setStudents] = useState<User[]>([]);
-  const [alumni, setAlumni] = useState<User[]>([]);
+  const [students, setStudents] = useState<AppUser[]>([]);
+  const [alumni, setAlumni] = useState<AppUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<FilterOptions>({
     branch: user?.branch || '',
@@ -32,7 +60,7 @@ const AdminDashboard: React.FC = () => {
     });
 
     // Mock data for students and alumni
-    const mockStudents: User[] = [
+    const mockStudents: AppUser[] = [
       {
         uid: '1',
         email: 'john.doe@university.edu',
@@ -59,7 +87,7 @@ const AdminDashboard: React.FC = () => {
       }
     ];
 
-    const mockAlumni: User[] = [
+    const mockAlumni: AppUser[] = [
       {
         uid: '3',
         email: 'alex.johnson@university.edu',

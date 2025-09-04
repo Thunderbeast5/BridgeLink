@@ -13,7 +13,7 @@
 2. Navigate to **Authentication** → **Sign-in method**
 3. Enable **Email/Password** authentication
 4. Configure email verification settings:
-   - Go to **Authentication** → **Templates**
+   - Go to **Authentication** → **Templates**a
    - Customize the email verification template if needed
 
 ### 2. Firestore Database Setup
@@ -69,3 +69,4 @@ The provided `firestore.rules` include:
 2. Test user registration and authentication
 3. Deploy to Firebase Hosting when ready
 4. Set up Cloud Functions for advanced features (Phase 2+)
+

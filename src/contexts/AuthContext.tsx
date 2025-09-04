@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { 
-  User as FirebaseUser,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
@@ -9,7 +8,41 @@ import {
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
-import { User, AuthContextType, SignUpData } from '../types';
+
+// Define types directly in this file
+interface AppUser {
+  uid: string;
+  email: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  role: 'admin' | 'alumni' | 'student';
+  branch: string;
+  batchYear: number;
+  createdAt: Date;
+  updatedAt: Date;
+  emailVerified: boolean;
+}
+
+interface SignUpData {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: 'alumni' | 'student';
+  branch: string;
+  batchYear: number;
+}
+
+interface AuthContextType {
+  user: AppUser | null;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (userData: SignUpData) => Promise<void>;
+  signOut: () => Promise<void>;
+  sendEmailVerification: () => Promise<void>;
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -22,7 +55,7 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AppUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,7 +64,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         try {
           if (db) {
