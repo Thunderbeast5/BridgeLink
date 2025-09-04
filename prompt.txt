@@ -1,0 +1,90 @@
+
+
+
+Build BridgeLink – Phase 1 using React (Vite), Tailwind CSS, and Firebase (Auth + Firestore + Functions + Hosting).
+
+Requirements:
+	•	Dark, modern UI inspired by ecell.in/nec with a video carousel hero like the GoDaddy India homepage.
+	•	Three entities:
+	1.	Admin (branch teacher) → can view Students & Alumni of their branch, filter by batch year.
+	2.	Alumni (pass-outs) → sign up, view Students of their branch.
+	3.	Students (current) → sign up, view Alumni of their branch.
+	•	Unified signup (Student/Alumni) with fields: first/middle/last name, college email, role, branch, batch year, password.
+	•	Email verification + college email domain enforcement.
+	•	Role-based dashboard:
+	•	Admin: Stats cards (counts by branch/year), directories of Students/Alumni with filters & search.
+	•	Alumni: Student directory (branch-scoped).
+	•	Student: Alumni directory (branch-scoped).
+	•	Hybrid Firestore Data Model (segregated but consistent): /users/{uid} {
+  role, branch, batchYear, names, email, timestamps
+}
+
+/branches/{branch}/students/{uid}
+/branches/{branch}/alumni/{uid}
+/branches/{branch}/admins/{uid}
+
+/metrics/branchYear/{branch}_{year} {
+  studentCount, alumniCount
+} •	/users → master collection (for auth, cross-role search).
+	•	/branches/... → segregated subcollections for branch-level filtering.
+	•	Cloud Functions keep /users and /branches/... in sync.
+
+	•	Security:
+	•	Custom claims: { role, branch }.
+	•	Admins: read all users in their branch.
+	•	Students/Alumni: read opposite role in their branch (public fields only).
+	•	Users can only update their own doc.
+	•	Features to include: branch/year filters, search bar, dark/light theme toggle, responsive layout, skeleton loaders.
+	•	Cloud Functions:
+	1.	createUserProfile → validates email domain, writes /users/{uid} + /branches/{branch}/{role}/{uid}.
+	2.	setAdminClaims → sets custom claims, mirrors admin doc.
+	3.	onUserWrite → updates /metrics/branchYear.
+	•	Firestore composite indexes for (role, branch), (role, branch, batchYear), (branch, batchYear), and (role, fullNameLower).
+	•	Pages: Landing (video carousel), Login, Signup (unified with role toggle), Verify Email, Dashboards (Admin/Alumni/Student).
+	•	Deployable to Firebase Hosting with full Firestore rules + indexes JSON.
+
+Acceptance Criteria:
+	•	Unified signup works with role segregation.
+	•	Email verification enforced.
+	•	Admin sees branch-locked dashboard with segregated student/alumni data.
+	•	Alumni sees student directory for their branch.
+	•	Students see alumni directory for their branch.
+	•	Dark responsive UI with autoplay video carousel landing page.
+	•	Firestore rules enforce branch/role access.
+	•	Data exists in both /users and branch-level subcollections (hybrid model).
+
+⸻  the above is the phase implementation a d below are the features sonnet of them are already in phase 1 and rest will be implemented in next phases so just implement phase 1 and you can add the pages for rest features whose functionality will be done in next phase  also keep the folders separate or each entity
+
+⚡ This way your system is future-proof:
+	•	/users → global queries, authentication consistency.
+	•	/branches/... → fast segregated queries for dashboards.  🎓 Alumni Features
+	•	Sign up & set profile (headline, bio, skills, company, socials, visibility settings)
+	•	Join branch & interest-based groups (networking hubs)
+	•	Create groups / manage groups (if owner)
+	•	Post in forums / groups (text, media, tags)
+	•	Submit success stories (for moderation)
+	•	Apply to be “Featured Alumni” (via posts or nomination)
+	•	Create job / internship postings (pending admin approval)
+	•	Offer outsourcing / freelance opportunities
+	•	Respond to mentorship requests (accept / reject)
+	•	Conduct or host events (webinars, mentoring, hackathons)
+	•	Register for events
+	•	View alumni directory (with filters: batch, branch, company, location)
+	•	Participate in discussions / forums
+	•	Receive AI matchmaking suggestions (student connections)
+	•	Donate to campaigns (scholarships, research, fundraising) 👨‍🎓 Student Features
+	•	Sign up & set profile (headline, bio, skills, branch, batch)
+	•	Join groups (networking hubs, student-only communities)
+	•	Participate in group discussions & forums
+	•	Post questions / discussions in forums
+	•	Browse alumni directory (filters: batch, branch, company, location — limited visibility)
+	•	Send mentorship requests to alumni (one-to-one)
+	•	Receive mentorship responses (accept/reject + notifications)
+	•	Apply to jobs / internships (upload CV + message)
+	•	Apply to outsourcing/freelance gigs
+	•	Register for events (webinars, mentoring sessions, hackathons)
+	•	View & interact with success stories / featured alumni
+	•	Participate in surveys / feedback forms
+	•	Receive AI matchmaking suggestions (best alumni matches for mentorship)
+	•	Use AI chatbot for navigation / guidance
+	•	Participate in donation campaigns (optionally contribute or share campaigns)
