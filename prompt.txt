@@ -1,8 +1,7 @@
 
 
 
-Build BridgeLink – Phase 1 using React (Vite), Tailwind CSS, and Firebase (Auth + Firestore + Functions + Hosting).
-
+Build BridgeLink – Phase 1 using React (Vite), Tailwind CSS, and Firebase (Auth + Firestore + Functions)
 Requirements:
 	•	Dark, modern UI inspired by ecell.in/nec with a video carousel hero like the GoDaddy India homepage.
 	•	Three entities:

@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read/write their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Branch-specific collections
+    match /branches/{branch}/{collection}/{userId} {
+      allow read: if request.auth != null && 
+        (request.auth.token.role == 'admin' || 
+         (request.auth.token.branch == branch && 
+          ((collection == 'students' && request.auth.token.role == 'alumni') ||
+           (collection == 'alumni' && request.auth.token.role == 'student'))));
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Metrics collection - read only for admins
+    match /metrics/{document=**} {
+      allow read: if request.auth != null && request.auth.token.role == 'admin';
+      allow write: if false; // Only Cloud Functions can write
+    }
+  }
+}

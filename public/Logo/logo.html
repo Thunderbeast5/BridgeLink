@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    /* Main container */
+    .logo-wrapper {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Better approach with a wrapper for the B */
+    .b-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .b-letter {
+      display: block;
+      width: 100%;
+    }
+    
+    .hat {
+      position: absolute;
+      top: -4px;
+      left: -6px;
+      width: 220px;
+      transform-origin: center center;
+      /* Modified animation with no delay, continuous looping */
+      animation: rock-mid 2.5s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+      will-change: transform;
+    }
+    
+    /* Midpoint rotation animation - more smooth transition */
+    @keyframes rock-mid {
+      0%, 100% { transform: rotateZ(0deg); }
+      25% { transform: rotateZ(-5deg); }
+      50% { transform: rotateZ(0deg); }
+      75% { transform: rotateZ(5deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-wrapper">
+    <div class="b-wrapper">
+      <img src="./b.png" alt="B" class="b-letter" />
+      <div class="hat-container">
+        <img src="./hat-1.png" alt="Hat" class="hat" />
+      </div>
+    </div>
+  </div>
+</body>
+</html>
