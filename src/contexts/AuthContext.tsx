@@ -26,25 +26,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!auth) {
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
         try {
-          const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            setUser({
-              uid: firebaseUser.uid,
-              email: firebaseUser.email!,
-              firstName: userData.firstName,
-              middleName: userData.middleName,
-              lastName: userData.lastName,
-              role: userData.role,
-              branch: userData.branch,
-              batchYear: userData.batchYear,
-              createdAt: userData.createdAt.toDate(),
-              updatedAt: userData.updatedAt.toDate(),
-              emailVerified: firebaseUser.emailVerified
-            });
+          if (db) {
+            const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              setUser({
+                uid: firebaseUser.uid,
+                email: firebaseUser.email!,
+                firstName: userData.firstName,
+                middleName: userData.middleName,
+                lastName: userData.lastName,
+                role: userData.role,
+                branch: userData.branch,
+                batchYear: userData.batchYear,
+                createdAt: userData.createdAt.toDate(),
+                updatedAt: userData.updatedAt.toDate(),
+                emailVerified: firebaseUser.emailVerified
+              });
+            }
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -56,9 +63,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     return unsubscribe;
-  }, []);
+  }, [auth, db]);
 
   const signIn = async (email: string, password: string) => {
+    if (!auth) {
+      throw new Error('Firebase not initialized');
+    }
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -69,6 +79,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signUp = async (userData: SignUpData) => {
+    if (!auth || !db) {
+      throw new Error('Firebase not initialized');
+    }
     setLoading(true);
     try {
       const { user: firebaseUser } = await createUserWithEmailAndPassword(
@@ -109,6 +122,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signOut = async () => {
+    if (!auth) {
+      throw new Error('Firebase not initialized');
+    }
     setLoading(true);
     try {
       await firebaseSignOut(auth);
@@ -119,9 +135,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const sendEmailVerification = async () => {
-    if (auth.currentUser) {
-      await firebaseSendEmailVerification(auth.currentUser);
+    if (!auth || !auth.currentUser) {
+      throw new Error('Firebase not initialized or no user');
     }
+    await firebaseSendEmailVerification(auth.currentUser);
   };
 
   const value: AuthContextType = {
