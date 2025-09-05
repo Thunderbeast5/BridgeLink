@@ -22,27 +22,25 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
   };
 
   return (
-    <div className={`relative inline-flex items-center justify-center ${sizeClasses[size]} ${className}`}>
-      <div className="relative">
-        {/* B Letter */}
-        <img 
-          src="/b.png" 
-          alt="B" 
-          className={`${sizeClasses[size]} object-contain`}
-        />
-        
-        {/* Animated Hat */}
-        <img 
-          src="/hat-1.png" 
-          alt="Hat" 
-          className={`absolute top-0 left-0 ${hatSizeClasses[size]} object-contain animate-rock`}
-          style={{
-            transformOrigin: 'center center',
-            top: '-4px',
-            left: '1px'
-          }}
-        />
-      </div>
+    <div className={`relative ${sizeClasses[size]} ${className}`} style={{ marginBottom: '2px' }}>
+      {/* B Letter */}
+      <img 
+        src="/b.png" 
+        alt="B" 
+        className={`${sizeClasses[size]} object-contain block`}
+      />
+      
+      {/* Animated Hat */}
+      <img 
+        src="/hat-1.png" 
+        alt="Hat" 
+        className={`absolute ${hatSizeClasses[size]} object-contain animate-rock`}
+        style={{
+          transformOrigin: 'center center',
+          top: '-4px',
+          left: '1px'
+        }}
+      />
     </div>
   );
 };
