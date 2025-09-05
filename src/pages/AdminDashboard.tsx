@@ -133,7 +133,7 @@ const AdminDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center pt-24">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
       </div>
     );
@@ -257,7 +257,7 @@ const AdminDashboard: React.FC = () => {
               </thead>
               <tbody>
                 {filteredStudents.map((student) => (
-                  <tr key={student.uid} className="border-b border-slate-700 hover:bg-slate-700/50">
+                  <tr key={student.uid} className="border-b border-slate-700 hover:card-frosted/50">
                     <td className="py-3 px-4 text-white">
                       {student.firstName} {student.lastName}
                     </td>
@@ -301,7 +301,7 @@ const AdminDashboard: React.FC = () => {
               </thead>
               <tbody>
                 {filteredAlumni.map((alumnus) => (
-                  <tr key={alumnus.uid} className="border-b border-slate-700 hover:bg-slate-700/50">
+                  <tr key={alumnus.uid} className="border-b border-slate-700 hover:card-frosted/50">
                     <td className="py-3 px-4 text-white">
                       {alumnus.firstName} {alumnus.lastName}
                     </td>

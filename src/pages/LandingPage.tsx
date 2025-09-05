@@ -105,7 +105,7 @@ const LandingPage: React.FC = () => {
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-20 h-full flex items-center">
+        <div className="relative z-20 h-full flex items-center pt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
@@ -136,19 +136,19 @@ const LandingPage: React.FC = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex items-center space-x-4">
           <button
             onClick={prevVideo}
-            className="p-2 bg-slate-800/80 hover:bg-slate-700/80 rounded-full text-white transition-colors"
+            className="p-3 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full text-white transition-all duration-300 border border-gray-400/30 hover:border-gray-300/50"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={togglePlayPause}
-            className="p-3 bg-slate-800/80 hover:bg-slate-700/80 rounded-full text-white transition-colors"
+            className="p-4 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full text-white transition-all duration-300 border border-gray-400/30 hover:border-gray-300/50"
           >
             {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
           </button>
           <button
             onClick={nextVideo}
-            className="p-2 bg-slate-800/80 hover:bg-slate-700/80 rounded-full text-white transition-colors"
+            className="p-3 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full text-white transition-all duration-300 border border-gray-400/30 hover:border-gray-300/50"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -160,8 +160,10 @@ const LandingPage: React.FC = () => {
             <button
               key={index}
               onClick={() => setCurrentVideo(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentVideo ? 'bg-primary-500' : 'bg-white/50'
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentVideo 
+                  ? 'bg-white backdrop-blur-md border border-gray-400/50' 
+                  : 'bg-white/30 backdrop-blur-sm border border-gray-400/20 hover:bg-white/50'
               }`}
             />
           ))}
@@ -169,7 +171,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-slate-800">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -183,14 +185,14 @@ const LandingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="card text-center group hover:scale-105 transition-transform">
-                <div className="text-primary-500 mb-4 flex justify-center group-hover:text-primary-400 transition-colors">
+              <div key={index} className="card-frosted text-center group hover:scale-105 transition-all duration-300 hover:bg-white/10">
+                <div className="text-primary-500 mb-6 flex justify-center group-hover:text-primary-400 transition-colors">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">
+                <h3 className="text-xl font-semibold text-white mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-gray-300 leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -211,13 +213,13 @@ const LandingPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/signup?role=student"
-              className="bg-white text-primary-600 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg transition-colors"
+              className="btn-primary text-center"
             >
               Join as Student
             </Link>
             <Link
               to="/signup?role=alumni"
-              className="bg-primary-800 text-white hover:bg-primary-900 font-medium py-3 px-8 rounded-lg border border-primary-500 transition-colors"
+              className="btn-secondary text-center"
             >
               Join as Alumni
             </Link>

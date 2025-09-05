@@ -101,7 +101,7 @@ const StudentDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen pt-24 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
       </div>
     );
@@ -200,7 +200,7 @@ const StudentDashboard: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredAlumni.map((alumnus) => (
-              <div key={alumnus.uid} className="bg-slate-700 rounded-lg p-6 hover:bg-slate-600 transition-colors">
+              <div key={alumnus.uid} className="card-frosted rounded-lg p-6 hover:bg-slate-600 transition-colors">
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h3 className="text-lg font-semibold text-white">

@@ -35,7 +35,7 @@ const VerifyEmailPage: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen pt-24 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white mb-4">Please sign in first</h1>
           <Link to="/login" className="btn-primary">
@@ -74,7 +74,7 @@ const VerifyEmailPage: React.FC = () => {
             </div>
 
             <div className="space-y-4">
-              <div className="bg-slate-700 rounded-lg p-4">
+              <div className="card-frosted rounded-lg p-4">
                 <h4 className="text-white font-medium mb-2">What to do next:</h4>
                 <ol className="text-sm text-gray-400 space-y-1 text-left">
                   <li>1. Check your email inbox</li>
@@ -102,7 +102,7 @@ const VerifyEmailPage: React.FC = () => {
                 <button
                   onClick={handleResendEmail}
                   disabled={isResending}
-                  className="w-full flex items-center justify-center space-x-2 py-3 px-4 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center space-x-2 py-3 px-4 card-frosted hover:bg-slate-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isResending ? (
                     <RefreshCw className="w-5 h-5 animate-spin" />
