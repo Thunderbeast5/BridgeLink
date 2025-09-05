@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Pause, ChevronLeft, ChevronRight, Users, GraduationCap, BookOpen, TrendingUp } from 'lucide-react';
+import { Users, GraduationCap, BookOpen, TrendingUp } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const LandingPage: React.FC = () => {
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [currentTitle, setCurrentTitle] = useState(0);
+  const [allowPageScroll, setAllowPageScroll] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const videoCarouselData = [
     {
@@ -39,25 +40,52 @@ const LandingPage: React.FC = () => {
   ];
 
   useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setCurrentVideo((prev) => (prev + 1) % videoCarouselData.length);
-      }, 5000);
-      return () => clearInterval(interval);
+    const handleScroll = (e: WheelEvent) => {
+      if (!allowPageScroll && !isScrolling) {
+        e.preventDefault();
+        
+        const delta = e.deltaY;
+        const scrollThreshold = 50;
+        
+        if (Math.abs(delta) > scrollThreshold) {
+          setIsScrolling(true);
+          
+          if (delta > 0 && currentTitle < videoCarouselData.length - 1) {
+            // Scroll down - next title
+            setCurrentTitle(prev => prev + 1);
+          } else if (delta < 0 && currentTitle > 0) {
+            // Scroll up - previous title
+            setCurrentTitle(prev => prev - 1);
+          } else if (delta > 0 && currentTitle === videoCarouselData.length - 1) {
+            // Last title reached, allow page scroll
+            setAllowPageScroll(true);
+          }
+          
+          // Reset scrolling flag after animation
+          setTimeout(() => setIsScrolling(false), 700);
+        }
+      }
+    };
+
+    const heroSection = document.getElementById('hero-section');
+    if (heroSection && !allowPageScroll) {
+      heroSection.addEventListener('wheel', handleScroll, { passive: false });
+      return () => heroSection.removeEventListener('wheel', handleScroll);
     }
-  }, [isPlaying, videoCarouselData.length]);
+  }, [currentTitle, allowPageScroll, isScrolling, videoCarouselData.length]);
 
-  const nextVideo = () => {
-    setCurrentVideo((prev) => (prev + 1) % videoCarouselData.length);
-  };
+  // Reset scroll behavior when scrolling back up
+  useEffect(() => {
+    const handlePageScroll = () => {
+      if (window.scrollY === 0 && allowPageScroll) {
+        setAllowPageScroll(false);
+        setCurrentTitle(videoCarouselData.length - 1);
+      }
+    };
 
-  const prevVideo = () => {
-    setCurrentVideo((prev) => (prev - 1 + videoCarouselData.length) % videoCarouselData.length);
-  };
-
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+    window.addEventListener('scroll', handlePageScroll);
+    return () => window.removeEventListener('scroll', handlePageScroll);
+  }, [allowPageScroll, videoCarouselData.length]);
 
   const features = [
     {
@@ -86,11 +114,11 @@ const LandingPage: React.FC = () => {
     <div className="page-container">
       <Header />
       
-      {/* Hero Section with Video Carousel */}
-      <section className="relative h-screen overflow-hidden">
+      {/* Hero Section with Scroll-based Title Changes */}
+      <section id="hero-section" className="relative h-screen overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-800/50 z-10"></div>
         
-        {/* Video Background */}
+        {/* Single Video Background */}
         <div className="absolute inset-0">
           <video
             className="w-full h-full object-cover"
@@ -98,76 +126,54 @@ const LandingPage: React.FC = () => {
             muted
             loop
             playsInline
-            poster={videoCarouselData[currentVideo].thumbnailUrl}
+            poster={videoCarouselData[0].thumbnailUrl}
           >
-            <source src={videoCarouselData[currentVideo].videoUrl} type="video/mp4" />
+            <source src={videoCarouselData[0].videoUrl} type="video/mp4" />
           </video>
         </div>
 
-        {/* Content Overlay */}
-        <div className="relative z-20 h-full flex items-center pt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                {videoCarouselData[currentVideo].title}
+        {/* Content Overlay with Animated Titles */}
+        <div className="relative z-20 h-full flex items-center justify-center overflow-hidden">
+          <div className="text-center relative w-full">
+            {videoCarouselData.map((item, index) => (
+              <h1 
+                key={index}
+                className={`text-6xl md:text-8xl font-bold text-white leading-tight absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
+                  index === currentTitle 
+                    ? 'transform translate-y-0 opacity-100' 
+                    : index < currentTitle 
+                      ? 'transform -translate-y-full opacity-0' 
+                      : 'transform translate-y-full opacity-0'
+                }`}
+              >
+                {item.title}
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-                {videoCarouselData[currentVideo].description}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  to={videoCarouselData[currentVideo].ctaLink}
-                  className="btn-primary text-lg px-8 py-4 inline-flex items-center justify-center"
-                >
-                  {videoCarouselData[currentVideo].ctaText}
-                </Link>
-                <Link
-                  to="/login"
-                  className="btn-secondary text-lg px-8 py-4 inline-flex items-center justify-center"
-                >
-                  Already a member? Login
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Video Controls */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex items-center space-x-4">
-          <button
-            onClick={prevVideo}
-            className="p-3 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full text-white transition-all duration-300 border border-gray-400/30 hover:border-gray-300/50"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button
-            onClick={togglePlayPause}
-            className="p-4 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full text-white transition-all duration-300 border border-gray-400/30 hover:border-gray-300/50"
-          >
-            {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-          </button>
-          <button
-            onClick={nextVideo}
-            className="p-3 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full text-white transition-all duration-300 border border-gray-400/30 hover:border-gray-300/50"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="flex flex-col items-center text-white/70">
+            <span className="text-sm mb-2">
+              {currentTitle + 1} / {videoCarouselData.length}
+            </span>
+            <div className="w-1 h-8 bg-white/30 rounded-full overflow-hidden">
+              <div 
+                className="w-full bg-white transition-all duration-300"
+                style={{ 
+                  height: `${((currentTitle + 1) / videoCarouselData.length) * 100}%` 
+                }}
+              />
+            </div>
+            {!allowPageScroll && (
+              <span className="text-xs mt-2 animate-pulse">
+                Scroll to explore
+              </span>
+            )}
+          </div>
         </div>
 
-        {/* Video Indicators */}
-        <div className="absolute bottom-8 right-8 z-20 flex space-x-2">
-          {videoCarouselData.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentVideo(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentVideo 
-                  ? 'bg-white backdrop-blur-md border border-gray-400/50' 
-                  : 'bg-white/30 backdrop-blur-sm border border-gray-400/20 hover:bg-white/50'
-              }`}
-            />
-          ))}
-        </div>
       </section>
 
       {/* Features Section */}
