@@ -38,8 +38,8 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
           className={`absolute top-0 left-0 ${hatSizeClasses[size]} object-contain animate-rock`}
           style={{
             transformOrigin: 'center center',
-            top: '-2px',
-            left: '-3px'
+            top: '-4px',
+            left: '1px'
           }}
         />
       </div>
