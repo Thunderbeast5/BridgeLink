@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Menu, X, User, LogOut, GraduationCap } from 'lucide-react';
+import { Menu, X, LogOut, GraduationCap } from 'lucide-react';
 import AnimatedLogo from './AnimatedLogo';
 
 const Header: React.FC = () => {
@@ -12,7 +12,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -35,60 +35,68 @@ const Header: React.FC = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      <div className={`transition-all duration-300 ${
-        isScrolled 
-          ? 'pt-4 px-4 sm:px-6 lg:px-8' 
-          : 'pt-6 px-4 sm:px-6 lg:px-8'
-      }`}>
+      <div 
+        className="w-full flex justify-center transition-all duration-300"
+        style={{ 
+          paddingTop: isScrolled ? '1.5rem' : '2rem' 
+        }}
+      >
         <div className={`transition-all duration-300 ${
           isScrolled 
-            ? 'max-w-4xl mx-auto rounded-2xl bg-black/60 backdrop-blur-lg border border-gray-400/30 shadow-2xl py-3' 
-            : 'w-full bg-transparent'
+            ? 'w-full max-w-4xl rounded-2xl bg-black/60 backdrop-blur-lg border border-gray-400/30 shadow-2xl py-3' 
+            : 'w-full max-w-7xl bg-transparent'
         }`}>
-          <div className={`flex justify-between items-center h-16 transition-all duration-300 ${
-            isScrolled ? 'px-6' : 'px-0'
+          <div className={`flex items-center h-16 transition-all duration-300 ${
+            isScrolled ? 'px-8' : 'px-8'
           }`}>
-            {/* Brand */}
-            <Link to="/" className="flex items-center space-x-3">
-              <AnimatedLogo size="md" />
-              <span className="text-2xl font-bold text-white">BridgeLink</span>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-300 hover:text-white transition-colors">
+            {/* Left side - Brand and Home */}
+            <div className="flex items-center gap-8">
+              <Link to="/" className="flex items-center space-x-3">
+                <AnimatedLogo size="md" />
+                <span className="text-2xl font-bold text-white">BridgeLink</span>
+              </Link>
+              <Link 
+                to="/" 
+                className="hidden md:block text-gray-300 hover:text-white transition-colors nav-scale"
+              >
                 Home
               </Link>
-              {user ? (
-                <>
-                  <Link to={getDashboardLink()} className="text-gray-300 hover:text-white transition-colors">
-                    Dashboard
-                  </Link>
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2 text-sm">
-                      <GraduationCap className="w-4 h-4" />
-                      <span className="text-gray-300">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</span>
+            </div>
+
+            {/* Right side - Navigation */}
+            <div className="flex-1 flex justify-end">
+              <nav className="hidden md:flex items-center gap-6">
+                {user ? (
+                  <>
+                    <Link to={getDashboardLink()} className="text-gray-300 hover:text-white transition-colors">
+                      Dashboard
+                    </Link>
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 text-sm">
+                        <GraduationCap className="w-4 h-4" />
+                        <span className="text-gray-300">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</span>
+                      </div>
+                      <button
+                        onClick={handleSignOut}
+                        className="flex items-center gap-1 text-gray-300 hover:text-white transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Sign Out</span>
+                      </button>
                     </div>
-                    <button
-                      onClick={handleSignOut}
-                      className="flex items-center space-x-1 text-gray-300 hover:text-white transition-colors"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      <span>Sign Out</span>
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" className="text-gray-300 hover:text-white transition-colors">
-                    Login
-                  </Link>
-                  <Link to="/signup" className="btn-primary">
-                    Sign Up
-                  </Link>
-                </>
-              )}
-            </nav>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login" className="text-gray-300 hover:text-white transition-colors nav-scale">
+                      Login
+                    </Link>
+                    <Link to="/signup" className="text-gray-300 hover:text-white transition-colors font-semibold nav-scale">
+                      Sign Up
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden">
