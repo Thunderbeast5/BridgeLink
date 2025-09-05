@@ -130,7 +130,7 @@ const SignupPage: React.FC = () => {
                   className={`p-4 rounded-lg border-2 transition-colors ${
                     formData.role === 'student'
                       ? 'border-primary-500 bg-primary-500/10 text-primary-400'
-                      : 'border-dark-600 bg-dark-700 text-gray-300 hover:border-dark-500'
+                      : 'border-slate-600 bg-slate-700 text-gray-300 hover:border-slate-500'
                   }`}
                 >
                   <GraduationCap className="w-6 h-6 mx-auto mb-2" />
@@ -142,7 +142,7 @@ const SignupPage: React.FC = () => {
                   className={`p-4 rounded-lg border-2 transition-colors ${
                     formData.role === 'alumni'
                       ? 'border-primary-500 bg-primary-500/10 text-primary-400'
-                      : 'border-dark-600 bg-dark-700 text-gray-300 hover:border-dark-500'
+                      : 'border-slate-600 bg-slate-700 text-gray-300 hover:border-slate-500'
                   }`}
                 >
                   <User className="w-6 h-6 mx-auto mb-2" />

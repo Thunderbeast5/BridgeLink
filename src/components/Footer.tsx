@@ -1,23 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Mail, Phone, MapPin } from 'lucide-react';
+import AnimatedLogo from './AnimatedLogo';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-dark-800 border-t border-dark-700">
+    <footer className="bg-slate-800 border-t border-slate-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="relative w-10 h-10">
-                <img src="/Logo/b.png" alt="BridgeLink" className="w-full h-full" />
-                <img 
-                  src="/Logo/hat-1.png" 
-                  alt="Hat" 
-                  className="absolute -top-1 -left-1 w-11 h-11 animate-bounce-slow" 
-                />
-              </div>
+            <div className="flex items-center space-x-3 mb-4">
+              <AnimatedLogo size="sm" />
               <span className="text-xl font-bold text-white">BridgeLink</span>
             </div>
             <p className="text-gray-400 mb-4 max-w-md">
@@ -76,7 +70,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-dark-700 mt-8 pt-8">
+        <div className="border-t border-slate-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
               © 2024 BridgeLink. All rights reserved.

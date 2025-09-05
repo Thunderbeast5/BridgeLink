@@ -88,7 +88,7 @@ const LandingPage: React.FC = () => {
       
       {/* Hero Section with Video Carousel */}
       <section className="relative h-screen overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-dark-900/90 to-dark-800/50 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-800/50 z-10"></div>
         
         {/* Video Background */}
         <div className="absolute inset-0">
@@ -136,19 +136,19 @@ const LandingPage: React.FC = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex items-center space-x-4">
           <button
             onClick={prevVideo}
-            className="p-2 bg-dark-800/80 hover:bg-dark-700/80 rounded-full text-white transition-colors"
+            className="p-2 bg-slate-800/80 hover:bg-slate-700/80 rounded-full text-white transition-colors"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={togglePlayPause}
-            className="p-3 bg-dark-800/80 hover:bg-dark-700/80 rounded-full text-white transition-colors"
+            className="p-3 bg-slate-800/80 hover:bg-slate-700/80 rounded-full text-white transition-colors"
           >
             {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
           </button>
           <button
             onClick={nextVideo}
-            className="p-2 bg-dark-800/80 hover:bg-dark-700/80 rounded-full text-white transition-colors"
+            className="p-2 bg-slate-800/80 hover:bg-slate-700/80 rounded-full text-white transition-colors"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -169,7 +169,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-dark-800">
+      <section className="py-20 bg-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">

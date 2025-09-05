@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Menu, X, User, LogOut, GraduationCap } from 'lucide-react';
+import AnimatedLogo from './AnimatedLogo';
 
 const Header: React.FC = () => {
   const { user, signOut } = useAuth();
@@ -23,11 +24,12 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-dark-800 border-b border-dark-700 sticky top-0 z-50">
+    <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Brand */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center space-x-3">
+            <AnimatedLogo size="md" />
             <span className="text-2xl font-bold text-white">BridgeLink</span>
           </Link>
 
@@ -81,7 +83,7 @@ const Header: React.FC = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-dark-800 border-t border-dark-700">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-slate-800 border-t border-slate-700">
               <Link
                 to="/"
                 className="block px-3 py-2 text-gray-300 hover:text-white transition-colors"
