@@ -72,7 +72,7 @@ const LandingPage: React.FC = () => {
             
             // Reset accumulated delta and scrolling flag
             accumulatedDelta = 0;
-            setTimeout(() => setIsScrolling(false), 700);
+            setTimeout(() => setIsScrolling(false), 1000);
           }
         } else {
           // Mouse wheel - use original threshold
@@ -93,7 +93,7 @@ const LandingPage: React.FC = () => {
             }
             
             // Reset scrolling flag after animation
-            setTimeout(() => setIsScrolling(false), 700);
+            setTimeout(() => setIsScrolling(false), 1000);
           }
         }
       }
@@ -166,17 +166,16 @@ const LandingPage: React.FC = () => {
 
         {/* Content Overlay with Animated Titles */}
         <div className="relative z-20 h-full flex items-center justify-center overflow-hidden">
-          <div className="text-center relative w-full">
+          <div className="relative w-full">
             {videoCarouselData.map((item, index) => (
               <h1 
                 key={index}
-                className={`text-6xl md:text-8xl font-bold text-white leading-tight absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
-                  index === currentTitle 
-                    ? 'transform translate-y-0 opacity-100' 
-                    : index < currentTitle 
-                      ? 'transform -translate-y-full opacity-0' 
-                      : 'transform translate-y-full opacity-0'
-                }`}
+                className="text-6xl md:text-8xl font-bold text-white leading-tight text-center absolute w-full transition-all duration-1000 ease-out"
+                style={{
+                  opacity: index === currentTitle ? 1 : index === currentTitle - 1 || index === currentTitle + 1 ? 0.5 : 0,
+                  left: '50%',
+                  transform: `translateX(-50%) translateY(${(index - currentTitle) * 120}px)`
+                }}
               >
                 {item.title}
               </h1>
