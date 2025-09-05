@@ -40,29 +40,61 @@ const LandingPage: React.FC = () => {
   ];
 
   useEffect(() => {
+    let accumulatedDelta = 0;
+    const deltaThreshold = 100; // Accumulated threshold for trackpad
+    
     const handleScroll = (e: WheelEvent) => {
       if (!allowPageScroll && !isScrolling) {
         e.preventDefault();
         
         const delta = e.deltaY;
-        const scrollThreshold = 50;
         
-        if (Math.abs(delta) > scrollThreshold) {
-          setIsScrolling(true);
+        // Detect if it's a trackpad (smaller, more frequent deltas) or mouse wheel
+        const isTrackpad = Math.abs(delta) < 50;
+        
+        if (isTrackpad) {
+          // Accumulate small trackpad movements
+          accumulatedDelta += delta;
           
-          if (delta > 0 && currentTitle < videoCarouselData.length - 1) {
-            // Scroll down - next title
-            setCurrentTitle(prev => prev + 1);
-          } else if (delta < 0 && currentTitle > 0) {
-            // Scroll up - previous title
-            setCurrentTitle(prev => prev - 1);
-          } else if (delta > 0 && currentTitle === videoCarouselData.length - 1) {
-            // Last title reached, allow page scroll
-            setAllowPageScroll(true);
+          if (Math.abs(accumulatedDelta) >= deltaThreshold) {
+            setIsScrolling(true);
+            
+            if (accumulatedDelta > 0 && currentTitle < videoCarouselData.length - 1) {
+              // Scroll down - next title
+              setCurrentTitle(prev => prev + 1);
+            } else if (accumulatedDelta < 0 && currentTitle > 0) {
+              // Scroll up - previous title
+              setCurrentTitle(prev => prev - 1);
+            } else if (accumulatedDelta > 0 && currentTitle === videoCarouselData.length - 1) {
+              // Last title reached, allow page scroll
+              setAllowPageScroll(true);
+            }
+            
+            // Reset accumulated delta and scrolling flag
+            accumulatedDelta = 0;
+            setTimeout(() => setIsScrolling(false), 700);
           }
+        } else {
+          // Mouse wheel - use original threshold
+          const scrollThreshold = 50;
           
-          // Reset scrolling flag after animation
-          setTimeout(() => setIsScrolling(false), 700);
+          if (Math.abs(delta) > scrollThreshold) {
+            setIsScrolling(true);
+            
+            if (delta > 0 && currentTitle < videoCarouselData.length - 1) {
+              // Scroll down - next title
+              setCurrentTitle(prev => prev + 1);
+            } else if (delta < 0 && currentTitle > 0) {
+              // Scroll up - previous title
+              setCurrentTitle(prev => prev - 1);
+            } else if (delta > 0 && currentTitle === videoCarouselData.length - 1) {
+              // Last title reached, allow page scroll
+              setAllowPageScroll(true);
+            }
+            
+            // Reset scrolling flag after animation
+            setTimeout(() => setIsScrolling(false), 700);
+          }
         }
       }
     };
