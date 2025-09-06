@@ -5,119 +5,44 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const LandingPage: React.FC = () => {
-  const [currentTitle, setCurrentTitle] = useState(0);
-  const [allowPageScroll, setAllowPageScroll] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
-  const videoCarouselData = [
+  const scrollTexts = [
     {
-      id: 1,
       title: "Connect with Alumni",
-      description: "Build meaningful connections with successful alumni from your branch and get career guidance.",
-      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-      thumbnailUrl: "https://via.placeholder.com/800x450/1e293b/ffffff?text=Connect+with+Alumni",
-      ctaText: "Join as Student",
-      ctaLink: "/signup?role=student"
+      description: "Build meaningful connections with successful alumni from your branch and get career guidance."
     },
     {
-      id: 2,
-      title: "Mentor Students",
-      description: "Share your experience and help current students navigate their academic and career journey.",
-      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-      thumbnailUrl: "https://via.placeholder.com/800x450/1e293b/ffffff?text=Mentor+Students",
-      ctaText: "Join as Alumni",
-      ctaLink: "/signup?role=alumni"
+      title: "Mentor Students", 
+      description: "Share your experience and help current students navigate their academic and career journey."
     },
     {
-      id: 3,
       title: "Manage Your Branch",
-      description: "Admin tools to manage students and alumni, track engagement, and foster community growth.",
-      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-      thumbnailUrl: "https://via.placeholder.com/800x450/1e293b/ffffff?text=Manage+Your+Branch",
-      ctaText: "Admin Access",
-      ctaLink: "/login"
+      description: "Admin tools to manage students and alumni, track engagement, and foster community growth."
     }
   ];
 
   useEffect(() => {
-    let accumulatedDelta = 0;
-    const deltaThreshold = 100; // Accumulated threshold for trackpad
-    
-    const handleScroll = (e: WheelEvent) => {
-      if (!allowPageScroll && !isScrolling) {
-        e.preventDefault();
-        
-        const delta = e.deltaY;
-        
-        // Detect if it's a trackpad (smaller, more frequent deltas) or mouse wheel
-        const isTrackpad = Math.abs(delta) < 50;
-        
-        if (isTrackpad) {
-          // Accumulate small trackpad movements
-          accumulatedDelta += delta;
-          
-          if (Math.abs(accumulatedDelta) >= deltaThreshold) {
-            setIsScrolling(true);
-            
-            if (accumulatedDelta > 0 && currentTitle < videoCarouselData.length - 1) {
-              // Scroll down - next title
-              setCurrentTitle(prev => prev + 1);
-            } else if (accumulatedDelta < 0 && currentTitle > 0) {
-              // Scroll up - previous title
-              setCurrentTitle(prev => prev - 1);
-            } else if (accumulatedDelta > 0 && currentTitle === videoCarouselData.length - 1) {
-              // Last title reached, allow page scroll
-              setAllowPageScroll(true);
-            }
-            
-            // Reset accumulated delta and scrolling flag
-            accumulatedDelta = 0;
-            setTimeout(() => setIsScrolling(false), 1000);
-          }
-        } else {
-          // Mouse wheel - use original threshold
-          const scrollThreshold = 50;
-          
-          if (Math.abs(delta) > scrollThreshold) {
-            setIsScrolling(true);
-            
-            if (delta > 0 && currentTitle < videoCarouselData.length - 1) {
-              // Scroll down - next title
-              setCurrentTitle(prev => prev + 1);
-            } else if (delta < 0 && currentTitle > 0) {
-              // Scroll up - previous title
-              setCurrentTitle(prev => prev - 1);
-            } else if (delta > 0 && currentTitle === videoCarouselData.length - 1) {
-              // Last title reached, allow page scroll
-              setAllowPageScroll(true);
-            }
-            
-            // Reset scrolling flag after animation
-            setTimeout(() => setIsScrolling(false), 1000);
-          }
-        }
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
+      
+      // Change text based on scroll after video is full width (400px+)
+      if (currentScrollY > 400) {
+        const textScrollStart = 400;
+        const textScrollRange = 300; // 300px per text
+        const relativeScroll = currentScrollY - textScrollStart;
+        const newIndex = Math.min(Math.floor(relativeScroll / textScrollRange), scrollTexts.length - 1);
+        setCurrentTextIndex(newIndex);
+      } else {
+        setCurrentTextIndex(0);
       }
     };
 
-    const heroSection = document.getElementById('hero-section');
-    if (heroSection && !allowPageScroll) {
-      heroSection.addEventListener('wheel', handleScroll, { passive: false });
-      return () => heroSection.removeEventListener('wheel', handleScroll);
-    }
-  }, [currentTitle, allowPageScroll, isScrolling, videoCarouselData.length]);
-
-  // Reset scroll behavior when scrolling back up
-  useEffect(() => {
-    const handlePageScroll = () => {
-      if (window.scrollY === 0 && allowPageScroll) {
-        setAllowPageScroll(false);
-        setCurrentTitle(videoCarouselData.length - 1);
-      }
-    };
-
-    window.addEventListener('scroll', handlePageScroll);
-    return () => window.removeEventListener('scroll', handlePageScroll);
-  }, [allowPageScroll, videoCarouselData.length]);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrollTexts.length]);
 
   const features = [
     {
@@ -142,73 +67,112 @@ const LandingPage: React.FC = () => {
     }
   ];
 
+  // Calculate video container styles based on scroll
+  const getVideoContainerStyles = () => {
+    const maxScroll = 350; // Maximum scroll distance for full expansion
+    const progress = Math.min(scrollY / maxScroll, 1);
+    
+    // Initial container properties - smaller width that expands on scroll
+    const initialWidth = 95; // Start with 90vw
+    const initialHeight = 83; // Start with 70vh
+    const initialRadius = 24; 
+    const initialMargin = 0; 
+    
+    // Interpolate values to final state (100vw width, 100vh height, 0 radius, 0 margin)
+    const width = initialWidth + (100 - initialWidth) * progress; // 90vw -> 100vw
+    const height = initialHeight + (100 - initialHeight) * progress; // 70vh -> 100vh
+    const borderRadius = initialRadius * (1 - progress);
+    const marginTop = initialMargin * (1 - progress);
+    
+    return {
+      width: `${width}vw`, // Use viewport width for true full screen
+      height: `${height}vh`, // Use viewport height for true full screen
+      borderRadius: `${borderRadius}px`,
+      marginTop: `${marginTop}px`,
+      transition: scrollY === 0 ? 'all 0.3s ease-out' : 'none'
+    };
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Header />
       
-      {/* Hero Section with Scroll-based Title Changes */}
-      <section id="hero-section" className="relative h-screen overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-800/50 z-10"></div>
-        
-        {/* Single Video Background */}
-        <div className="absolute inset-0">
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster={videoCarouselData[0].thumbnailUrl}
+      {/* Hero Section with Video Container */}
+      <section className="relative min-h-screen overflow-hidden">
+        {/* Black background with blue glow effects - matching NewSignupPage */}
+        <div className="absolute inset-0 bg-black">
+          {/* Animated particle circles */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-400/8 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-600/6 rounded-full blur-3xl animate-pulse delay-500"></div>
+          <div className="absolute top-10 right-10 w-48 h-48 bg-blue-300/4 rounded-full blur-xl animate-pulse delay-700"></div>
+          <div className="absolute bottom-10 left-10 w-56 h-56 bg-blue-500/7 rounded-full blur-2xl animate-pulse delay-300"></div>
+          
+          {/* Subtle radial glow in center */}
+          <div className="absolute inset-0 bg-gradient-radial from-blue-900/10 via-transparent to-transparent"></div>
+        </div>
+
+        {/* Content positioned in middle between navbar and video */}
+        <div className="relative z-10 text-center px-4 pt-32">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+            Bridge the Gap
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-16">
+            Connect students and alumni in a seamless networking platform
+          </p>
+        </div>
+
+        {/* Video Container with Smooth Expansion to Full Screen */}
+        <div className="relative z-10 flex justify-center px-4">
+          <div 
+            className="relative overflow-hidden border-2 border-blue-500/30 shadow-2xl shadow-blue-500/20"
+            style={getVideoContainerStyles()}
           >
-            <source src={videoCarouselData[0].videoUrl} type="video/mp4" />
-          </video>
-        </div>
-
-        {/* Content Overlay with Animated Titles */}
-        <div className="relative z-20 h-full flex items-center justify-center overflow-hidden">
-          <div className="relative w-full">
-            {videoCarouselData.map((item, index) => (
-              <h1 
-                key={index}
-                className="text-6xl md:text-8xl font-bold text-white leading-tight text-center absolute w-full transition-all duration-1000 ease-out"
-                style={{
-                  opacity: index === currentTitle ? 1 : index === currentTitle - 1 || index === currentTitle + 1 ? 0.5 : 0,
-                  left: '50%',
-                  transform: `translateX(-50%) translateY(${(index - currentTitle) * 120}px)`
-                }}
-              >
-                {item.title}
-              </h1>
-            ))}
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-          <div className="flex flex-col items-center text-white/70">
-            <span className="text-sm mb-2">
-              {currentTitle + 1} / {videoCarouselData.length}
-            </span>
-            <div className="w-1 h-8 bg-white/30 rounded-full overflow-hidden">
-              <div 
-                className="w-full bg-white transition-all duration-300"
-                style={{ 
-                  height: `${((currentTitle + 1) / videoCarouselData.length) * 100}%` 
-                }}
-              />
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+            </video>
+            
+            {/* Video Overlay Content - Changes based on scroll */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 flex items-center justify-center">
+              <div className="text-center text-white px-8">
+                <div 
+                  className="transition-all duration-1000 ease-out"
+                  style={{
+                    transform: `translateY(${(currentTextIndex) * -100}px)`,
+                    opacity: scrollY > 1300 ? 0 : 1 // Fade out when approaching website content
+                  }}
+                >
+                  <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                    {scrollTexts[currentTextIndex].title}
+                  </h2>
+                  <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                    {scrollTexts[currentTextIndex].description}
+                  </p>
+                </div>
+              </div>
             </div>
-            {!allowPageScroll && (
-              <span className="text-xs mt-2 animate-pulse">
-                Scroll to explore
-              </span>
-            )}
           </div>
         </div>
-
       </section>
 
-      {/* Features Section */}
-      <section className="py-20">
+      {/* Features Section - Appears after video expansion */}
+      <section 
+        className={`py-20 transition-all duration-1000 ${
+          scrollY > 600 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-20'
+        }`}
+        style={{ 
+          marginTop: scrollY > 500 ? '0' : '100vh',
+          transition: 'all 0.8s ease-out'
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -222,7 +186,17 @@ const LandingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white/3 backdrop-blur-xl border border-gray-400/25 rounded-3xl p-10 shadow-2xl hover:bg-white/8 transition-all duration-300 text-center group hover:scale-105 hover:bg-white/10">
+              <div 
+                key={index} 
+                className={`bg-white/3 backdrop-blur-xl border border-gray-400/25 rounded-3xl p-10 shadow-2xl hover:bg-white/8 transition-all duration-500 text-center group hover:scale-105 hover:bg-white/10 ${
+                  scrollY > 700 + index * 100
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-10'
+                }`}
+                style={{
+                  transitionDelay: `${index * 150}ms`
+                }}
+              >
                 <div className="text-primary-500 mb-6 flex justify-center group-hover:text-primary-400 transition-colors">
                   {feature.icon}
                 </div>
@@ -238,8 +212,14 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-600 to-primary-700">
+      {/* CTA Section - Appears after features */}
+      <section 
+        className={`py-20 bg-gradient-to-r from-primary-600 to-primary-700 transition-all duration-1000 ${
+          scrollY > 1200 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-20'
+        }`}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Get Started?
@@ -270,4 +250,3 @@ const LandingPage: React.FC = () => {
 };
 
 export default LandingPage;
-
