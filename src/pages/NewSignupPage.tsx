@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Eye, EyeOff, Mail, Lock, User, GraduationCap, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, GraduationCap, AlertCircle, CheckCircle, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Stepper } from '../components/ui/stepper';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -170,7 +170,9 @@ const NewSignupPage: React.FC = () => {
           {/* Alumni Option */}
           <button
             onClick={() => handleRoleSelection('alumni')}
-            className="group relative p-8 bg-black/80 backdrop-blur-sm border border-gray-800 rounded-2xl hover:border-blue-500/50 hover:bg-black/90 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
+            className="group relative p-8 bg-black/80 
+            
+            drop-blur-sm border border-gray-800 rounded-2xl hover:border-blue-500/50 hover:bg-black/90 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-blue-400/8 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-inner shadow-blue-500/10"></div>
@@ -238,14 +240,22 @@ const NewSignupPage: React.FC = () => {
         return (
           <div className="space-y-8">
             <div className="space-y-6">
-              <select
-                id="branch"
-                name="branch"
-                required
-                className="input-field text-xl py-6 px-6"
-                value={formData.branch}
-                onChange={handleInputChange}
-              >
+            <select
+  id="branch"
+  name="branch"
+  required
+  className="input-field text-xl py-6 px-6"
+  style={{
+    appearance: 'none',
+    backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: '1rem center',
+    backgroundSize: '1.5rem',
+    paddingRight: '3rem'
+  }}
+  value={formData.branch}
+  onChange={handleInputChange}
+>
                 <option value="">Select Branch</option>
                 {branches.map((branch) => (
                   <option key={branch} value={branch}>
@@ -275,8 +285,8 @@ const NewSignupPage: React.FC = () => {
             <div className="space-y-6">
               {/* Email */}
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                  <Mail className="h-7 w-7 text-gray-400" />
+                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
+                  <Mail className="h-7 w-7 text-gray-300" />
                 </div>
                 <input
                   id="email"
@@ -301,7 +311,7 @@ const NewSignupPage: React.FC = () => {
 
               {/* Password */}
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
                   <Lock className="h-7 w-7 text-gray-400" />
                 </div>
                 <input
@@ -330,7 +340,7 @@ const NewSignupPage: React.FC = () => {
 
               {/* Confirm Password */}
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
                   <Lock className="h-7 w-7 text-gray-400" />
                 </div>
                 <input
@@ -420,18 +430,19 @@ const NewSignupPage: React.FC = () => {
                     (currentStep === 0 && (!formData.firstName || !formData.lastName)) ||
                     (currentStep === 1 && (!formData.branch || !formData.batchYear))
                   }
-                  className="text-blue-400 hover:text-blue-300 transition-colors duration-300 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Next
+                  className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+                  >
+                  <span className="text-lg">Next</span>
+                  <ArrowRight className="w-5 h-5" />
                 </button>
               ) : (
                 <button
                   type="submit"
                   disabled={loading || !!emailDomainError || !formData.email || !formData.password || !confirmPassword}
-                  className="text-orange-400 hover:text-orange-300 transition-colors duration-300 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-blue-300 hover:text-blue-400 transition-colors duration-300 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-orange-400"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-400"></div>
                   ) : (
                     'Create Account'
                   )}

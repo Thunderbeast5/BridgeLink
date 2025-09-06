@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Menu, X, LogOut, GraduationCap } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 import AnimatedLogo from './AnimatedLogo';
 
 const Header: React.FC = () => {
@@ -71,17 +71,17 @@ const Header: React.FC = () => {
                     <Link to={getDashboardLink()} className="text-gray-300 hover:text-white transition-colors">
                       Dashboard
                     </Link>
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 text-sm">
-                        <GraduationCap className="w-4 h-4" />
-                        <span className="text-gray-300">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</span>
-                      </div>
+                    <div className="flex items-center gap-6">
+                      {/* <div className="flex items-center gap-2 text-sm">
+                        <GraduationCap className="w-5 h-5" />
+                        <span className="text-gray-300 hover:text-white transition-colors">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</span>
+                      </div> */}
                       <button
                         onClick={handleSignOut}
                         className="flex items-center gap-1 text-gray-300 hover:text-white transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
-                        <span>Sign Out</span>
+                        {/* <span>Sign Out</span> */}
                       </button>
                     </div>
                   </>
