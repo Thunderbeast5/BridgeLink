@@ -140,7 +140,7 @@ const AdminDashboard: React.FC = () => {
   }
 
   return (
-    <div className="page-container">
+    <div className="min-h-screen">
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -152,7 +152,7 @@ const AdminDashboard: React.FC = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="card">
+          <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center">
               <div className="p-3 bg-primary-500/10 rounded-lg">
                 <GraduationCap className="w-6 h-6 text-primary-500" />
@@ -164,7 +164,7 @@ const AdminDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="card">
+          <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center">
               <div className="p-3 bg-green-500/10 rounded-lg">
                 <UserCheck className="w-6 h-6 text-green-500" />
@@ -176,7 +176,7 @@ const AdminDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="card">
+          <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center">
               <div className="p-3 bg-blue-500/10 rounded-lg">
                 <Users className="w-6 h-6 text-blue-500" />
@@ -188,7 +188,7 @@ const AdminDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="card">
+          <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center">
               <div className="p-3 bg-yellow-500/10 rounded-lg">
                 <TrendingUp className="w-6 h-6 text-yellow-500" />
@@ -202,7 +202,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="card mb-8">
+        <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
@@ -228,7 +228,7 @@ const AdminDashboard: React.FC = () => {
                 ))}
               </select>
             </div>
-            <button className="btn-secondary flex items-center space-x-2">
+            <button className="bg-white/5 backdrop-blur-md hover:bg-white/15 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:border-gray-300/40 flex items-center space-x-2">
               <Filter className="w-4 h-4" />
               <span>More Filters</span>
             </button>
@@ -236,10 +236,10 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Students Section */}
-        <div className="card mb-8">
+        <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300 mb-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-white">Students ({filteredStudents.length})</h2>
-            <button className="btn-secondary flex items-center space-x-2">
+            <button className="bg-white/5 backdrop-blur-md hover:bg-white/15 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:border-gray-300/40 flex items-center space-x-2">
               <Download className="w-4 h-4" />
               <span>Export</span>
             </button>
@@ -257,7 +257,7 @@ const AdminDashboard: React.FC = () => {
               </thead>
               <tbody>
                 {filteredStudents.map((student) => (
-                  <tr key={student.uid} className="border-b border-slate-700 hover:card-frosted/50">
+                  <tr key={student.uid} className="border-b border-slate-700 hover:bg-white/3">
                     <td className="py-3 px-4 text-white">
                       {student.firstName} {student.lastName}
                     </td>
@@ -280,10 +280,10 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Alumni Section */}
-        <div className="card">
+        <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-white">Alumni ({filteredAlumni.length})</h2>
-            <button className="btn-secondary flex items-center space-x-2">
+            <button className="bg-white/5 backdrop-blur-md hover:bg-white/15 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:border-gray-300/40 flex items-center space-x-2">
               <Download className="w-4 h-4" />
               <span>Export</span>
             </button>
@@ -301,7 +301,7 @@ const AdminDashboard: React.FC = () => {
               </thead>
               <tbody>
                 {filteredAlumni.map((alumnus) => (
-                  <tr key={alumnus.uid} className="border-b border-slate-700 hover:card-frosted/50">
+                  <tr key={alumnus.uid} className="border-b border-slate-700 hover:bg-white/3">
                     <td className="py-3 px-4 text-white">
                       {alumnus.firstName} {alumnus.lastName}
                     </td>

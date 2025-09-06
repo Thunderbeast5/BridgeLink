@@ -143,7 +143,7 @@ const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="page-container">
+    <div className="min-h-screen">
       <Header />
       
       {/* Hero Section with Scroll-based Title Changes */}
@@ -222,7 +222,7 @@ const LandingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="card-frosted text-center group hover:scale-105 transition-all duration-300 hover:bg-white/10">
+              <div key={index} className="bg-white/3 backdrop-blur-xl border border-gray-400/25 rounded-3xl p-10 shadow-2xl hover:bg-white/8 transition-all duration-300 text-center group hover:scale-105 hover:bg-white/10">
                 <div className="text-primary-500 mb-6 flex justify-center group-hover:text-primary-400 transition-colors">
                   {feature.icon}
                 </div>
@@ -250,13 +250,13 @@ const LandingPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/signup?role=student"
-              className="btn-primary text-center"
+              className="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/30 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:border-gray-300/50 text-center"
             >
               Join as Student
             </Link>
             <Link
               to="/signup?role=alumni"
-              className="btn-secondary text-center"
+              className="bg-white/5 backdrop-blur-md hover:bg-white/15 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:border-gray-300/40 text-center"
             >
               Join as Alumni
             </Link>

@@ -1,15 +1,14 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import NewSignupPage from './pages/NewSignupPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import AdminDashboard from './pages/AdminDashboard';
 import AlumniDashboard from './pages/AlumniDashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
   return (
@@ -19,7 +18,8 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signup" element={<NewSignupPage />} />
+            <Route path="/signup-old" element={<SignupPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route 
               path="/admin/dashboard" 

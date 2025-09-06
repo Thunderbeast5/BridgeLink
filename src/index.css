@@ -1,27 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Specific override for header padding utilities only */
-header [class*="px-"], header [class*="pl-"], header [class*="pr-"] {
-  padding-left: var(--tw-space-x-reverse, 0) !important;
-  padding-right: calc(2rem * calc(1 - var(--tw-space-x-reverse, 0))) !important;
-}
-
-header .px-8 {
-  padding-left: 2rem !important;
-  padding-right: 2rem !important;
-}
 
 body {
   font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   background-color: #000000;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   color: #f8fafc;
   line-height: 1.6;
 }
@@ -32,51 +15,22 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #374151;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #4b5563;
 }
 
-/* Smooth transitions */
-* {
-  transition: all 0.2s ease-in-out;
-}
 
-/* Custom components */
 @layer components {
-  .btn-primary {
-    @apply bg-white/10 backdrop-blur-md hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/30 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:border-gray-300/50;
-  }
-  
-  .btn-secondary {
-    @apply bg-white/5 backdrop-blur-md hover:bg-white/15 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:border-gray-300/40;
-  }
-  
-  .card {
-    @apply bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300;
-  }
-  
-  .card-frosted {
-    @apply bg-white/3 backdrop-blur-xl border border-gray-400/25 rounded-3xl p-10 shadow-2xl hover:bg-white/8 transition-all duration-300;
-  }
-  
   .input-field {
-    @apply w-full px-4 py-3 bg-white/5 backdrop-blur-md border border-gray-400/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-300 hover:bg-white/10;
-  }
-  
-  .form-container {
-    @apply bg-white/5 backdrop-blur-xl border border-gray-400/25 rounded-3xl p-8 shadow-2xl hover:bg-white/8 transition-all duration-300;
-  }
-  
-  .page-container {
-    @apply min-h-screen;
+    @apply w-full bg-black/60 backdrop-blur-md border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/70 focus:shadow-lg focus:shadow-blue-500/20 transition-all duration-300 hover:bg-black/80 hover:border-gray-600;
   }
 }
 
@@ -91,96 +45,4 @@ body {
 .animate-rock {
   animation: rock-mid 2.5s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
   will-change: transform;
-}
-
-/* Navigation Hover Effects */
-@keyframes cube-fall {
-  0% { 
-    transform: rotateX(-90deg) translateZ(20px);
-    opacity: 1;
-  }
-  50% {
-    transform: rotateX(-45deg) translateZ(10px);
-    opacity: 1;
-  }
-  100% { 
-    transform: rotateX(0deg) translateZ(0px);
-    opacity: 1;
-  }
-}
-
-@keyframes text-reveal {
-  0% {
-    opacity: 0;
-    transform: translateZ(-10px);
-  }
-  60% {
-    opacity: 0;
-    transform: translateZ(-5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateZ(0px);
-  }
-}
-
-.home-hover {
-  position: relative;
-  perspective: 200px;
-  transform-style: preserve-3d;
-  overflow: hidden;
-}
-
-.home-hover::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotateX(-90deg) translateZ(20px);
-  opacity: 1;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-  z-index: 2;
-}
-
-.home-hover:hover::before {
-  animation: cube-fall 0.6s ease-out forwards;
-}
-
-.home-hover:hover {
-  animation: text-reveal 0.6s ease-out forwards;
-}
-
-.nav-scale {
-  transition: transform 0.2s ease;
-}
-
-.nav-scale:hover {
-  transform: scale(1.1);
-}
-
-.nav-pro-btn {
-  background: #f59e0b; /* accent orange/gold */
-  color: #fff;
-  border-radius: 9999px; /* pill */
-  padding: 0.5rem 1rem;
-  transition: all 0.25s ease-in-out;
-}
-
-.nav-pro-btn:hover {
-  background: #fbbf24; /* lighter accent */
-  transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
-}
-
-.nav-pro-btn:active {
-  background: #d97706; /* darker accent */
-  transform: scale(0.97);
 }

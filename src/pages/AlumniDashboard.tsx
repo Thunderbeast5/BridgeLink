@@ -108,7 +108,7 @@ const AlumniDashboard: React.FC = () => {
   }
 
   return (
-    <div className="page-container">
+    <div className="min-h-screen">
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -120,7 +120,7 @@ const AlumniDashboard: React.FC = () => {
 
         {/* Stats Card */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="card">
+          <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center">
               <div className="p-3 bg-primary-500/10 rounded-lg">
                 <Users className="w-6 h-6 text-primary-500" />
@@ -132,7 +132,7 @@ const AlumniDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="card">
+          <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center">
               <div className="p-3 bg-green-500/10 rounded-lg">
                 <MessageCircle className="w-6 h-6 text-green-500" />
@@ -144,7 +144,7 @@ const AlumniDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="card">
+          <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center">
               <div className="p-3 bg-blue-500/10 rounded-lg">
                 <UserPlus className="w-6 h-6 text-blue-500" />
@@ -158,7 +158,7 @@ const AlumniDashboard: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="card mb-8">
+        <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
@@ -184,7 +184,7 @@ const AlumniDashboard: React.FC = () => {
                 ))}
               </select>
             </div>
-            <button className="btn-secondary flex items-center space-x-2">
+            <button className="bg-white/5 backdrop-blur-md hover:bg-white/15 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:border-gray-300/40 flex items-center space-x-2">
               <Filter className="w-4 h-4" />
               <span>More Filters</span>
             </button>
@@ -192,7 +192,7 @@ const AlumniDashboard: React.FC = () => {
         </div>
 
         {/* Students Directory */}
-        <div className="card">
+        <div className="bg-white/5 backdrop-blur-lg border border-gray-400/20 rounded-2xl p-8 shadow-2xl hover:bg-white/10 transition-all duration-300">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-white">Students Directory ({filteredStudents.length})</h2>
             <p className="text-sm text-gray-400">Connect with students from your branch</p>
@@ -200,7 +200,7 @@ const AlumniDashboard: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredStudents.map((student) => (
-              <div key={student.uid} className="card-frosted rounded-lg p-6 hover:bg-slate-600 transition-colors">
+              <div key={student.uid} className="bg-white/3 backdrop-blur-xl border border-gray-400/25 rounded-3xl p-10 shadow-2xl hover:bg-white/8 transition-all duration-300 rounded-lg p-6 hover:bg-slate-600 transition-colors">
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h3 className="text-lg font-semibold text-white">
@@ -234,7 +234,7 @@ const AlumniDashboard: React.FC = () => {
                 <div className="mt-4 pt-4 border-t border-slate-600">
                   <button
                     onClick={() => handleMentorshipRequest(student.uid)}
-                    className="w-full btn-primary flex items-center justify-center space-x-2"
+                    className="w-full bg-white/10 backdrop-blur-md hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-xl border border-gray-400/30 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 hover:border-gray-300/50 flex items-center justify-center space-x-2"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Send Mentorship Request</span>

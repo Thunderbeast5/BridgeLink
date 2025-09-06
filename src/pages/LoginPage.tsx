@@ -26,19 +26,19 @@ const LoginPage: React.FC = () => {
     try {
       await signIn(email, password);
       navigate(from, { replace: true });
-    } catch (error: any) {
-      setError(error.message || 'Failed to sign in');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'Failed to sign in');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="page-container">
+    <div className="min-h-screen">
       <Header />
       
       <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="form-container max-w-md w-full space-y-8">
+        <div className="bg-black/90 backdrop-blur-xl border border-gray-800 rounded-3xl shadow-2xl shadow-blue-500/10 hover:bg-black/95 transition-all duration-300 max-w-md w-full space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-white mb-2">Welcome back</h2>
             <p className="text-gray-400">Sign in to your account</p>

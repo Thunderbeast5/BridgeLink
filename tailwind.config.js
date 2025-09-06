@@ -51,6 +51,9 @@ export default defineConfig({
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
     },
   },
   plugins: [],

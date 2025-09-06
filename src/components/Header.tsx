@@ -38,26 +38,26 @@ const Header: React.FC = () => {
       <div 
         className="w-full flex justify-center transition-all duration-300"
         style={{ 
-          paddingTop: isScrolled ? '1.5rem' : '2rem' 
+          paddingTop: isScrolled ? '1rem' : '1.5rem' 
         }}
       >
         <div className={`transition-all duration-300 ${
           isScrolled 
-            ? 'w-full max-w-4xl rounded-2xl bg-black/60 backdrop-blur-lg border border-gray-400/30 shadow-2xl py-3' 
+            ? 'w-full max-w-4xl rounded-2xl bg-black/60 backdrop-blur-lg border border-gray-400/30 shadow-2xl py-2' 
             : 'w-full max-w-7xl bg-transparent'
         }`}>
-          <div className={`flex items-center h-16 transition-all duration-300 ${
+          <div className={`flex items-center h-12 transition-all duration-300 ${
             isScrolled ? 'px-8' : 'px-8'
           }`}>
             {/* Left side - Brand and Home */}
             <div className="flex items-center gap-8">
               <Link to="/" className="flex items-center space-x-3">
                 <AnimatedLogo size="md" />
-                <span className="text-2xl font-bold text-white">BridgeLink</span>
+                <span className="text-xl font-bold text-white">BridgeLink</span>
               </Link>
               <Link 
                 to="/" 
-                className="hidden md:block text-gray-300 hover:text-white transition-colors nav-scale"
+                className="hidden md:block text-gray-300 hover:text-white transition-colors hover:scale-110 transition-transform duration-200"
               >
                 Home
               </Link>
@@ -87,10 +87,10 @@ const Header: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <Link to="/login" className="text-gray-300 hover:text-white transition-colors nav-scale">
+                    <Link to="/login" className="text-gray-300 hover:text-white transition-colors hover:scale-110 transition-transform duration-200">
                       Login
                     </Link>
-                    <Link to="/signup" className="text-gray-300 hover:text-white transition-colors font-semibold nav-scale">
+                    <Link to="/signup" className="text-gray-300 hover:text-white transition-colors font-semibold hover:scale-110 transition-transform duration-200">
                       Sign Up
                     </Link>
                   </>
